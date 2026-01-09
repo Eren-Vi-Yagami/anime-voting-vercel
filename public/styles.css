@@ -1,0 +1,330 @@
+:root {
+    --primary: #00f3ff;
+    --secondary: #ff0055;
+    --accent: #bc13fe;
+    --bg-dark: #05050b;
+    --card-bg: rgba(20, 20, 35, 0.4);
+    --text-main: #ffffff;
+    --text-dim: #a0a0b0;
+    --font-head: 'Russo One', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+    --card-border: rgba(255, 255, 255, 0.1);
+    --glow-strength: 15px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Background Layer */
+.background-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('assets/bg.png') no-repeat center center/cover;
+    z-index: -2;
+}
+
+.background-layer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(10, 10, 25, 0.2) 0%, rgba(5, 5, 12, 0.95) 100%);
+    backdrop-filter: blur(8px);
+}
+
+/* Particle effect container */
+.particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Universal scrollbar hide */
+.hide-scrollbar {
+    overflow: auto;
+
+    /* Firefox */
+    scrollbar-width: none;
+
+    /* IE 10+ */
+    -ms-overflow-style: none;
+}
+
+/* Chrome, Safari, Edge (Chromium), Opera */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+/* Header */
+.main-header {
+    padding: 60px 20px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.site-logo {
+    font-family: var(--font-head);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+    margin-bottom: 10px;
+    animation: slideDown 0.8s ease-out;
+}
+
+.accent-text {
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.slogan {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    font-weight: 300;
+    animation: fadeIn 1.2s ease-out;
+}
+
+.stats-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 8px 16px;
+    border-radius: 100px;
+    margin-top: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: fadeIn 1.5s ease-out;
+}
+
+.badge-dot {
+    width: 8px;
+    height: 8px;
+    background: #ff4444;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ff4444;
+}
+
+/* Container & Grid */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+}
+
+/* Category Cards */
+.category-card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid var(--card-border);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.category-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 243, 255, 0.1);
+}
+
+.card-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.category-card:hover .card-glow {
+    opacity: 1;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.card-header h2 {
+    font-family: var(--font-head);
+    font-size: 1.4rem;
+    color: var(--text-main);
+    max-width: 70%;
+}
+
+.status-tag {
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-dim);
+    letter-spacing: 1px;
+}
+
+.card-desc {
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+/* Options Preview */
+.options-preview {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.opt-btn-disabled {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.8rem;
+    text-align: center;
+    cursor: default;
+    transition: background 0.3s;
+}
+
+.category-card:hover .opt-btn-disabled {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.countdown-placeholder {
+    margin-top: auto;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--primary);
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0.6;
+}
+
+/* Footer */
+.main-footer {
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+.footer-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 20px auto 0;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(188, 19, 254, 0.4);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.toast.hidden {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.reveal {
+    animation: revealCard 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    opacity: 0;
+}
+
+@keyframes revealCard {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .category-grid {
+        gap: 40px;
+    }
+}
